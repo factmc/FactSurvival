@@ -1,0 +1,10 @@
+name: FactSurvival
+main: net.factmc.FactSurvival.Main
+version: 1.0
+author: TrollyLoki
+
+api-version: 1.14
+
+commands:
+  fsur:
+    permission: factsurvival.admin
