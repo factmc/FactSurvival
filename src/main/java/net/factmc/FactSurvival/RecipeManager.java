@@ -19,13 +19,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class RecipeManager {
 	
 	public static ItemStack villageTracker, fortressTracker, cityTracker = null;
-	public static ShapedRecipe villageTrackerRecipe, fortressTrackerRecipe, cityTrackerRecipe = null;
+	public static ShapedRecipe villageTrackerRecipe, fortressTrackerRecipe, cityTrackerRecipe, saddleRecipe = null;
 	
 	public static void loadRecipes() {
 		
 		loadVillageTrackerRecipe();
 		loadFortressTrackerRecipe();
 		loadCityTrackerRecipe();
+		
+		loadSaddleRecipe();
 		
 	}
 	
@@ -43,6 +45,7 @@ public class RecipeManager {
 		villageTrackerRecipe = null;
 		fortressTrackerRecipe = null;
 		cityTrackerRecipe = null;
+		saddleRecipe = null;
 		villageTracker = null;
 		fortressTracker = null;
 		cityTracker = null;
@@ -55,7 +58,7 @@ public class RecipeManager {
 		if (inv.contains(Material.EMERALD)) player.discoverRecipe(villageTrackerRecipe.getKey());
 		if (inv.contains(Material.SOUL_SAND)) player.discoverRecipe(fortressTrackerRecipe.getKey());
 		if (inv.contains(Material.END_ROD)) player.discoverRecipe(cityTrackerRecipe.getKey());
-		//if (inv.contains(Material.LEATHER)) player.discoverRecipe(saddleRecipe.getKey());
+		if (inv.contains(Material.LEATHER)) player.discoverRecipe(saddleRecipe.getKey());
 		
 	}
 	
@@ -136,6 +139,23 @@ public class RecipeManager {
 			Main.getPlugin().getLogger().warning(e.getMessage());
 		}
 		return cityTrackerRecipe;
+		
+	}
+	
+	private static ShapedRecipe loadSaddleRecipe() {
+		
+		if (saddleRecipe == null) {
+			saddleRecipe = new ShapedRecipe(new NamespacedKey(Main.getPlugin(), "saddle"), new ItemStack(Material.SADDLE, 1));
+			saddleRecipe.shape("sls", "rlr", "tlt").setIngredient('s', Material.STICK)
+					.setIngredient('l', Material.LEATHER).setIngredient('r', Material.STRING).setIngredient('t', Material.TRIPWIRE_HOOK);
+		}
+		
+		try {
+			Bukkit.addRecipe(saddleRecipe);
+		} catch (IllegalStateException e) {
+			Main.getPlugin().getLogger().warning(e.getMessage());
+		}
+		return saddleRecipe;
 		
 	}
 	
